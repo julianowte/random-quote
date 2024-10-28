@@ -1,0 +1,28 @@
+{
+    "name": "julianowte/random-quote",
+    "description": "A simple packege to get quote api.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Julianowte\\RandomQuotes\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Juliano Soares",
+            "email": "juliano@wte.com.br"
+        }
+    ],
+    "require-dev": {
+        "pestphp/pest": "^3.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.9"
+    }
+}
