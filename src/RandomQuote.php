@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class RandomQuote
 {
-    const BASE_ENDPOINT = 'https://api.quotable.io/random/';
+    const BASE_ENDPOINT = 'http://api.quotable.io/random/';
 
     public function __construct(
         private Client $client = new Client
