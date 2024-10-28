@@ -1,5 +1,7 @@
 EXAMPLE OF CODE
 
+Random phrase generator code from famous American authors. Based on the http://api.quotable.io API.
+
 
 Install with Composer
 
