@@ -1,4 +1,7 @@
-README
+EXAMPLE OF CODE
+
+Install with Composer
+composer require julianowte/random-quote
 
 
 require('vendor/autoload.php');
