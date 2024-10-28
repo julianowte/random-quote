@@ -8,12 +8,16 @@ use Julianowte\RandomQuotes\RandomQuote;
     expect(true)->toBeTrue();
 });*/
 
-it('should return a Stephen Hawking quote', function () {
+it('should return a json Jane Austen quote', function () {
     $fakeClient = getResponseClient();
 
     $quoteClass = new RandomQuote($fakeClient);
 
-    $quote = $quoteClass->from('Stephen Hawking');
+    $quote = $quoteClass->from('Jane Austen');
 
-    expect($quote)->toBe('Be curious by Stephen Hawking');
+    expect($quote)
+        ->json()
+        ->toHaveCount(3)
+        ->author->toBe('Jane Austen')
+        ->quote->toBeString();
 });

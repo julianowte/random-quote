@@ -2,7 +2,9 @@
 
 namespace Julianowte\RandomQuotes;
 
+use GuzzleHttp\Psr7;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 
 class RandomQuote
 {
@@ -14,14 +16,32 @@ class RandomQuote
 
     public function from(string $author): string
     {
-        $response = $this->client->get(self::BASE_ENDPOINT, [
-            'query' => [
-                'author'  => str_replace(' ', '_', $author)
-            ]
-        ])->getBody()->getContents();
+        try {
+            $response = $this->client->get(self::BASE_ENDPOINT, [
+                'query' => [
+                    'author'  => str_replace(' ', '_', $author)
+                ]
+            ])->getBody()->getContents();
 
-        $quote = json_decode($response, true);
+            $quote = json_decode($response, true);
 
-        return "{$quote['content']} by {$author}";
+            return json_encode([
+                "author" => $author,
+                "quote" => $quote['content'],
+                "error" => []
+            ]);
+        } catch (RequestException $e) {
+            $error['error'] = $e->getMessage();
+            $error['request'] = Psr7\Message::toString($e->getRequest());
+            if ($e->hasResponse()) {
+                $error['response'] = Psr7\Message::toString($e->getResponse());
+            }
+            http_response_code(400);
+            return json_encode([
+                "author" => "",
+                "quote" => "",
+                "error" => $error
+            ]);
+        }
     }
 }
